@@ -1,0 +1,40 @@
+flowchart TB
+    subgraph Presentation["Presentation layer"]
+        Main["Main.java<br/>CLI menus"]
+    end
+    subgraph Service["Service layer - business logic"]
+        InvSvc["InventoryService"]
+        BillSvc["BillingService"]
+        RepSvc["ReportService"]
+        CustSvc["CustomerService"]
+    end
+    subgraph Repository["Repository layer - persistence"]
+        InvRepo["InventoryRepository"]
+        BillRepo["BillRepository"]
+        CustRepo["CustomerRepository"]
+    end
+    subgraph Model["Model layer"]
+        Item["JewelryItem"]
+        Bill["Bill / BillItem"]
+        Cust["Customer"]
+    end
+    subgraph Storage["File storage"]
+        CSV["data/*.csv"]
+    end
+
+    Main --> InvSvc
+    Main --> BillSvc
+    Main --> RepSvc
+    Main --> CustSvc
+    BillSvc --> InvSvc
+    RepSvc --> BillSvc
+    RepSvc --> InvSvc
+    InvSvc --> InvRepo
+    BillSvc --> BillRepo
+    CustSvc --> CustRepo
+    InvRepo --> Item
+    BillRepo --> Bill
+    CustRepo --> Cust
+    InvRepo --> CSV
+    BillRepo --> CSV
+    CustRepo --> CSV

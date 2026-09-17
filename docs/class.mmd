@@ -1,0 +1,63 @@
+classDiagram
+    class JewelryItem {
+      -String itemId
+      -String name
+      -String category
+      -String metalType
+      -String purity
+      -double weightInGrams
+      -double ratePerGram
+      -double makingChargePerGram
+      -int stockQuantity
+      +calculateUnitPrice() double
+      +toCSV() String
+    }
+
+    class Bill {
+      -String billId
+      -String customerId
+      -LocalDateTime dateTime
+      -List~BillItem~ items
+      -double discountPercent
+      +getSubtotal() double
+      +getGstAmount() double
+      +getTotalAmount() double
+    }
+
+    class BillItem {
+      -String itemId
+      -int quantity
+      -double priceAtSale
+      +getLineTotal() double
+    }
+
+    class Customer {
+      -String customerId
+      -String name
+      -String phone
+      -String email
+    }
+
+    class InventoryService {
+      +addItem()
+      +updateStock()
+      +deleteItem()
+      +lowStockItems() List
+    }
+
+    class BillingService {
+      +createBill() Bill
+      +allBills() List
+    }
+
+    class ReportService {
+      +salesSummary() SalesSummary
+      +topSellingItems() List
+    }
+
+    Bill "1" *-- "many" BillItem
+    InventoryService ..> JewelryItem
+    BillingService ..> Bill
+    BillingService ..> InventoryService
+    ReportService ..> BillingService
+    ReportService ..> InventoryService

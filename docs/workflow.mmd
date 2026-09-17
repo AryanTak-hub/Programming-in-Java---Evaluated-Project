@@ -1,0 +1,12 @@
+flowchart TD
+    A[Staff selects Billing] --> B[Enter customer ID]
+    B --> C{Customer exists?}
+    C -- No --> Z1[Show error, return to menu]
+    C -- Yes --> D[Add item IDs and quantities]
+    D --> E{Stock sufficient<br/>for every item?}
+    E -- No --> Z2[Reject bill,<br/>no stock changed]
+    E -- Yes --> F[Enter discount percent]
+    F --> G[Calculate subtotal,<br/>discount and 3% GST]
+    G --> H[Deduct stock for each item]
+    H --> I[Save bill to data/bills.csv]
+    I --> J[Print invoice]

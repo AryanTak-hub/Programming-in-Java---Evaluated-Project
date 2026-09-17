@@ -1,0 +1,18 @@
+flowchart LR
+    Staff(["Store staff"])
+    Manager(["Store manager"])
+
+    UC1["Manage inventory<br/>(add / update / delete / search)"]
+    UC2["Manage customers"]
+    UC3["Raise a bill"]
+    UC4["View low-stock alerts"]
+    UC5["View sales &amp; stock reports"]
+
+    Staff --> UC1
+    Staff --> UC2
+    Staff --> UC3
+    Staff --> UC4
+    Manager --> UC5
+    Manager --> UC4
+    UC3 -. depends on .-> UC1
+    UC3 -. depends on .-> UC2

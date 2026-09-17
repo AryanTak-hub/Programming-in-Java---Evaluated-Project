@@ -1,0 +1,34 @@
+erDiagram
+    CUSTOMERS ||--o{ BILLS : places
+    JEWELRY_ITEMS ||--o{ BILL_ITEMS : "sold as"
+    BILLS ||--|{ BILL_ITEMS : contains
+
+    CUSTOMERS {
+        string customerId PK
+        string name
+        string phone
+        string email
+    }
+    JEWELRY_ITEMS {
+        string itemId PK
+        string name
+        string category
+        string metalType
+        string purity
+        double weightInGrams
+        double ratePerGram
+        double makingChargePerGram
+        int stockQuantity
+    }
+    BILLS {
+        string billId PK
+        string customerId FK
+        datetime dateTime
+        double discountPercent
+    }
+    BILL_ITEMS {
+        string itemId FK
+        string itemName
+        int quantity
+        double priceAtSale
+    }

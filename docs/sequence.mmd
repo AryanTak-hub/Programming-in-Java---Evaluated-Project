@@ -1,0 +1,22 @@
+sequenceDiagram
+    actor U as Staff
+    participant M as Main (CLI)
+    participant BS as BillingService
+    participant IS as InventoryService
+    participant CS as CustomerService
+    participant BR as BillRepository
+
+    U->>M: Choose Billing, enter customer + items
+    M->>BS: createBill(customerId, items, discount)
+    BS->>CS: getCustomer(customerId)
+    CS-->>BS: Customer
+    loop for each requested item
+        BS->>IS: getItem(itemId)
+        IS-->>BS: JewelryItem
+        BS->>BS: check stock >= quantity
+    end
+    BS->>IS: reduceStock(itemId, quantity) for each item
+    BS->>BR: append(bill)
+    BR-->>BS: saved
+    BS-->>M: Bill
+    M-->>U: Print invoice (subtotal, GST, total)
